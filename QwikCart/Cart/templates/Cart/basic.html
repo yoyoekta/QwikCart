@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background: rgb(97, 97, 221);
+            color: white;
+            height: 70px;
+        }
+
+        nav ul{
+            display: flex;
+            align-items: center;
+            padding: 12px;
+        }
+
+        nav ul li{
+            list-style: none;
+            padding: 12px;
+        }
+
+        a{
+            text-decoration: none;
+            color: white;
+        }
+
+        li a:hover{
+            background: rgb(9, 9, 190);
+
+        }
+
+        {% block css %} {% endblock %}
+    </style>
+    
+
+    {% comment %} <link rel="stylesheet" href="{% static 'Cart/css/style.css' %}"> {% endcomment %}
+
+
+    <title>Base- QwikCart</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li><a href="{% url 'ContactUs' %}">Contact</a></li>
+                <li>Login/Sign Up</li>
+            </ul>
+        </nav>
+    </header>
+
+    {% block body %} {% endblock %}
+</body>
+
+</html>

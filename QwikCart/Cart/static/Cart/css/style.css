@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    background-color: black;
+    color: white;
+    height: 50px;
+}
+
+nav ul li{
+    display: inline;
+    padding: 12px;
+}
+
+
+
+div .container{
+    margin: 63px 429px;
+    padding: 5rem;
+    background-color: antiquewhite;
+    height: 70vh;
+    font-size: 25px;
+}

@@ -1,0 +1,56 @@
+{% extends "Cart/basic1.html" %}
+
+{% block css %}
+<style>
+    div .container{
+        margin: 63px 429px;
+        padding: 5rem;
+        background-color: antiquewhite;
+        height: 70vh;
+        font-size: 25px;
+    }
+</style>    
+
+{% endblock %}
+{% block body %}
+<div class="container">
+    <h1>Contact Us</h1>
+
+    <form action = "/Cart/contact/" method ="post" autocomplete = "off">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+      </div>
+      <div class="mb-3">
+        <label for="email">Email Address</label>
+        <input type="email" class="form-control" id="email" name="email" rows="3" placeholder="example@gmail.com">
+      </div>
+      <div class="mb-3">
+        <label for="phone">Mobile No.</label>
+        <input type="tel" class="form-control" id="phone" name="phone" rows="3" placeholder="Enter your moblie number">
+      </div>
+      <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter description"></textarea>
+      </div>
+        
+    </form>
+</div>
+
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+{% if thanks %}
+alert('Thanks for contacting us. We will get back to you soon.');
+
+document.location = '/shop/contact';
+{% endif %}
+</script>
+
+{% endblock %}
