@@ -155,7 +155,10 @@ function updateCart(cart) {
     var sum = 0;
     for (var item in cart) {
         sum = sum + cart[item][0];
-        document.getElementById('divpr' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+        console.log(sum);
+        console.log(item);
+        console.log('in updateCart');
+        document.getElementById('div'+item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
 
     }
     localStorage.setItem('cart', JSON.stringify(cart));
