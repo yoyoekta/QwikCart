@@ -40,7 +40,7 @@
         updateCart(cart);
     }
 
-    $('.cart').click(function () {
+    $('.divpr').on('click', 'button.cart', function() {
         console.log("clicked");
         var idstr = this.id.toString();
         console.log(idstr);
@@ -108,7 +108,7 @@
         updatePopover(cart);
     }
 
-    $('.minus').click(function () {
+    $('.divpr').on("click", "button.minus", function() {
         console.log('minusclicked');
         cart['pr'][0] = cart['pr'][0] - 1;
         cart['pr'][0] = Math.max(0, cart['pr'][0]);
@@ -122,7 +122,7 @@
         updateCart(cart);
     });
 
-    $('.plus').click(function () {
+    $('.divpr').on("click", "button.plus", function() {
         console.log('plusclicked');
         cart['pr'][0] = cart['pr'][0] + 1;
         document.getElementById('valpr').innerHTML = cart['pr'][0];
