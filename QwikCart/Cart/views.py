@@ -17,7 +17,7 @@ def index(request):
     return render(request, 'Cart/index.html',params)
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request, 'Cart/about.html')
 
 def contact(request):
     thanks = False
