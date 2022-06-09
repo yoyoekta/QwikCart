@@ -38,10 +38,20 @@ body .no-padding{
 padding-left: 0,
 padding-right: 0;
 }
+
+#centerimg{
+    height: 50vh;
+    width: 80vw;
+    padding: 1rem;
+    margin-left: 10rem;
+}
 {% endblock %}
 {% block body %}
 {% load static %}
+
+<img src="{% static 'Cart/images/homeimg.jpg' %}" id="centerimg">
 <div class="container">
+    
     <!--Slideshow starts here -->
     {% for product, range, nSlides in allProds %}
     <h5 class="my-4">Flash Sale On {{product.0.category}} - Recommended Items</h5>
