@@ -5,18 +5,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    {% load static %}
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
+    <link rel="icon" type="image/x-icon" href="{% static 'Cart/images/favicon.jpg' %}">
     <title>{% block title%} {% endblock %}</title>
     <style>
-        nav{
-            position: sticky;
-            z-index: 1;
-        }
-
         #logo{
             height: 7vh;
         }
@@ -27,8 +23,7 @@
 </head>
 
 <body>
-    {% load static %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info sticky-top">
         <a class="navbar-brand" href="{% url 'Home' %}"><img src="{% static 'Cart/images/logo_nav_bar.jpg' %}" id="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +52,7 @@
             <form method='get' action="{% url 'Search' %}" class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
                     id="search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
             <button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body"
                 data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
