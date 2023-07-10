@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 const connectDB = require('./db');
 const cors = require('cors');
 const auth = require('./routes/auth')
+const admin = require('./routes/admin')
+const home = require('./routes/home')
 
 dotenv.config();
 
@@ -16,6 +18,8 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", auth);
+app.use("/api/admin", admin);
+app.use("/api/home", home);
 
 app.listen(PORT, () => {
     connectDB();
