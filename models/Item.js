@@ -10,7 +10,6 @@ const itemSchema = new Schema({
         "description" : {
             "type": String,
             "required" : [true, "Short Description is required"],
-            "unique" : true
         },
         "category":{
             "type":String,
