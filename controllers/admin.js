@@ -1,5 +1,6 @@
 const Item = require('../models/Item');
 const User = require('../models/User');
+const Cloudinary = require('../cloudinary');
 
 // Creates new Item
 const createItem = async(req, res) => {
@@ -13,15 +14,44 @@ const createItem = async(req, res) => {
             })
         }
 
-        const newItem = new Item(req.body);
-        newItem.user = req.user;
+        const {itemName, description, category, price, image, quantity, seller, rating} = req.body;
 
-        const savedItem = await newItem.save();
-        return res.status(200).send({
-            "success":true,
-            "message": "Item created successfully",
-            newItem
-        })
+        try{
+            if(image){
+                const uploadedImg = await Cloudinary.uploader.upload(image, {
+                    upload_preset : "qwikcart"
+                })
+
+                if(uploadedImg){
+                    const newItem = new Item({
+                        itemName,
+                        description,
+                        category,
+                        price,
+                        image:uploadedImg,
+                        quantity,
+                        seller,
+                        rating,
+                        user:req.user
+                    })
+    
+                    const savedItem = await newItem.save();
+                    return res.status(200).send({
+                        "success":true,
+                        "message": "Item created successfully",
+                        newItem
+                    })
+                }
+            }
+        }
+        catch(err){
+            console.log(err);
+            return res.status(500).send({
+                "success":false,
+                "message": "Error occurred while uploading image",
+                err
+            })
+        }  
     }
     catch(err){
         console.log(err);
@@ -84,6 +114,17 @@ const editItem = async(req, res) => {
         
         const itemToEdit = await Item.findById({_id:req.params.id});
         if(itemToEdit.user == req.user){
+
+            if(req.body.image){
+                const uploadedImg = await Cloudinary.uploader.upload(req.body.image, {
+                    upload_preset : "qwikcart"
+                })
+
+                if(uploadedImg){
+                    req.body.image = uploadedImg;
+                }
+            }
+
             const editableItem = await Item.updateOne({_id:req.params.id}, req.body);
             const editedItem = await Item.findById({_id:req.params.id});
             return res.status(200).send({

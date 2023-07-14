@@ -19,10 +19,10 @@ const itemSchema = new Schema({
             "type":Number,
             "required" : [true, "Price is required"]
         },
-        // "image":{
-        //     "type":String,
-        //     "required" : [true, "Image is required"]
-        // },
+        "image":{
+            "type":Object,
+            "required" : [true, "Image is required"]
+        },
         "quantity":{
             "type":Number,
             "default": 1
