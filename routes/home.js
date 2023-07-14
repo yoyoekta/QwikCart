@@ -10,9 +10,9 @@ console.log(url)
 router.get('/allProds', getAllProducts)
 
 // To fetch products by category
-router.get(`/category/:category`, getProductsByCategory)
+router.get('/category/:category', getProductsByCategory)
 
 // To fetch product by id
-router.get(`/product/:id`, getProductById)
+router.get('/product/:id', getProductById)
 
 module.exports = router
