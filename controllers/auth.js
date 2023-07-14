@@ -1,12 +1,13 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const connectDB = require('../db');
 
 const register = async(req, res) => {
     try{
-        const { role, email, password } = await req.body;
+        await connectDB();
+        const { username, email, password } = await req.body;
 
-        // role === "user"
         const existing = await User.findOne({email: email})
         if(existing){
             return res.status(200).send({
@@ -19,7 +20,7 @@ const register = async(req, res) => {
             const hashedPassword = await bcrypt.hash(password, 5);
 
             const user = new User({
-                role: role,
+                username: username,
                 email: email,
                 password: hashedPassword
             })
@@ -44,9 +45,9 @@ const register = async(req, res) => {
 
 const login = async(req, res) => {
     try{
-        const {role, email, password} = req.body;
+        await connectDB();
 
-        // role === "user"
+        const {email, password} = req.body;
         const foundUser = await User.findOne({email:email});
         if(foundUser){
             console.log("User found");
@@ -89,6 +90,7 @@ const login = async(req, res) => {
 
 const getCurrentUser = async(req, res) => {
     try{
+        await connectDB();
         const user = await User.findById({_id:req.user}).select('-password');
         return res.status(200).send({
             "success":true,
