@@ -2,37 +2,22 @@ import React, { useEffect, useState } from "react";
 import BottomBar from "../components/BottomBar";
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
+import fetchProds from "../components/FetchProds";
 
-const ProductById = () => {
+const ProductView = () => {
 
-    const { id } = useParams()
+    const { category, id } = useParams()
     const [image, setImage] = useState("");
     const [itemName, setItemName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
 
     const getItem = async () => {
-        try {
-            const url = process.env.REACT_APP_HOST + "/home/product/" + id;
-            const res = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            const data = await res.json();
-            console.log(data);
-            const product = data.product;
-            setItemName(product.itemName);
-            setPrice(product.price);
-            setDescription(product.description);
-            setImage(product.image.secure_url);
-        }
-
-        catch (err) {
-            console.log(err);
-        }
+        const item = fetchProds(category)[id]
+        setItemName(item.itemName);
+        setPrice(item.price);
+        setDescription(item.description);
+        setImage(item.image);
     }
 
     useEffect(() => {
@@ -65,4 +50,4 @@ const ProductById = () => {
     );
 };
 
-export default ProductById;
+export default ProductView;
