@@ -1,13 +1,47 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import BottomBar from "../components/BottomBar";
 import { FaKey, FaUser } from "react-icons/fa6";
+import { ToastContainer} from "react-toastify";
+import notify from "../components/Notification";
 
 const Login = () => {
-  const handleSubmit = (e) => {
+
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login");
+
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+    const url = process.env.REACT_APP_HOST + "/auth/login";
+
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: email, password: password }),
+      });
+      
+      const response = await res.json();
+      console.log(response);
+      if(response.success ){
+        notify("success", "Login Successful");
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("user_id", response.foundUser._id);
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
+      }
+      else{
+        notify("error", "Login Failed");
+      }
+    }
+    catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -57,6 +91,7 @@ const Login = () => {
           </Link>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

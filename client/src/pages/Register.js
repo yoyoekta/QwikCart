@@ -1,14 +1,45 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import BottomBar from '../components/BottomBar'
 import Navbar from '../components/Navbar'
 import { FaKey, FaUser } from 'react-icons/fa'
+import notify from '../components/Notification'
 
 const Register = () => {
 
-    const handleSubmit = (e) => {
+    console.log(process.env.REACT_APP_HOST);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Register");
+        const username = e.target[0].value;
+        const email = e.target[1].value;
+        const password = e.target[2].value;
+
+        console.log(username, email, password);
+
+        const url = process.env.REACT_APP_HOST + "/auth/register"
+        try {
+
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({username : username, email: email, password: password}),
+            });
+
+            if(res.status === 201){
+                notify("success","Registration Successful");
+                navigate('/login')
+            }
+            else{
+                notify("error", "Registration Failed");
+            }
+        }
+        catch (err){
+            console.log(err);
+        }
     };
 
     return (
