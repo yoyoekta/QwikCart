@@ -3,16 +3,19 @@ import electronics from '../images/electronics.jpg'
 import clothing from '../images/clothing.jpg'
 import household from '../images/household.jpg'
 import arts from '../images/arts.jpg'
+import { Link } from 'react-router-dom'
 
 const Feature = ({title, image}) => {
   return (
-    <div className="border rounded-lg cursor-pointer">
-      <div className='p-4 m-2 flex flex-col space-y-2'>
-        <h3 className='text-xl font-semibold'>{title}</h3>
-        <img src={image} alt={title} height={300} width={300}/>
-        <p>Shop now</p>
+    <Link to={`/products/${title.toLowerCase()}`} className="border rounded-lg cursor-pointer">
+      <div className="border rounded-lg cursor-pointer">
+        <div className='p-4 m-2 flex flex-col space-y-2'>
+          <h3 className='text-xl font-semibold'>{title}</h3>
+          <img src={image} alt={title} height={300} width={300}/>
+          <p>Shop now</p>
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
