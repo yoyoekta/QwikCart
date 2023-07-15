@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BottomBar from "../components/BottomBar";
 import Navbar from "../components/Navbar";
-import { FaAngleRight, FaPen, FaRegTrashCan } from "react-icons/fa6";
+import DisplayProds from "./DisplayProds";
 
-const Cart = () => {
+
+const MyProducts = () => {
+
+    const [myProds, setmyProds] = useState([])
+    const [empty, setEmpty] = useState(false);
+
+    const getmyproducts = async () => {
+
+        const url = process.env.REACT_APP_HOST + "/admin/userItems"
+
+        try{
+            const res = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    "Content-Type" : "application/json",
+                    "authorization" : "Bearer " + localStorage.getItem("token"),
+                } 
+            })
+
+            const response = await res.json();
+            setmyProds(response.items);
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+
+
+    useEffect(() => {
+        getmyproducts();
+    }, [myProds])
+
     return (
         <div className="min-h-screen flex flex-col bg-white text-black dark:bg-black dark:text-white">
         <Navbar />
@@ -14,28 +45,11 @@ const Cart = () => {
                 <h1 className="text-4xl font-semibold">My Products</h1>
                 <hr className="border-2 border-black" />
                 <div className="flex flex-col space-y-4">
-                <div className="flex flex-row justify-between items-center border-b-2 px-4 py-4">
-                    <div className="flex flex-row space-x-4 items-center">
-                    <div className="w-16 h-16 bg-black rounded-lg"></div>
-                    <div className="flex flex-col">
-                        <div className="text-xl font-semibold">Product 1</div>
-                        <div className="text-sm">Rs. 100</div>
-                    </div>
-                    </div>
-                    <div className="flex flex-row space-x-4 items-center">
-                    <div className="flex flex-row space-x-4 items-center">
-                        <div className="flex flex-col">
-                        <div className="text-2xl font-semibold"><FaPen /></div>
-                        </div>
-                    </div>
-                    <div className="flex flex-row space-x-4 items-center">
-                        <div className="flex mx-5 space-x-4">
-                        <div className="text-3xl font-semibold"><FaRegTrashCan /></div>
-                        <div className="text-3xl font-semibold"><FaAngleRight /></div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+                    {
+                        myProds.length === 0 ? (<h3 className="text-xl font-semibold"> No products to show. Kindly add few. </h3>) : myProds.map((item, index) => {
+                            return(<DisplayProds items={item} key={index}/>)
+                        })
+                    }
                 </div>
             </div>
             </div>
@@ -44,4 +58,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default MyProducts;
