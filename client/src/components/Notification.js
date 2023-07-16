@@ -9,18 +9,26 @@ export default function notify(type, message) {
     }
 
     else if(type === "error"){
-        toast.error(message);
+        toast.error(message, {
+            position: "bottom-center",
+        });
     }
 
     else if(type === "warning"){
-        toast.warning(message);
+        toast.warning(message, {
+            position: "bottom-center",
+        });
     }
 
     else if(type === "info"){
-        toast.info(message);
+        toast.info(message, {
+            position: "bottom-center",
+        });
     }
 
     else{
-        toast(message);
+        toast(message, {
+            position: "bottom-center",
+        });
     }
 }
