@@ -11,7 +11,7 @@
   "proxy": "http://localhost:8080",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "cd client && npm run build",
+    "build": "cd client && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
