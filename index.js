@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const dotenv = require('dotenv');
 const connectDB = require('./db');
 const cors = require('cors');
@@ -12,6 +13,12 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT || 8080;
+const buildPath = path.join(__dirname, '/client/build')
+app.use(express.static(buildPath))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'))
+})
 
 connectDB();
 // Middlewares

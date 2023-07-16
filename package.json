@@ -1,6 +1,10 @@
 {
   "name": "qwikcart",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.0.0",
+    "npm": "8.6.0"
+  },
   "description": "An e-commerce website",
   "main": "index.js",
   "type": "commonjs",
@@ -23,6 +27,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.3.2",
+    "path": "^0.12.7",
     "stripe": "^12.13.0"
   }
 }

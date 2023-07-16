@@ -26,7 +26,12 @@ const Cart = () => {
 
   const updateSubtotal = (value) => {
     setSubtotal(value);
-    setTotal(value + 50);
+    if(value === 0) {
+      setTotal(value);
+      setEmpty(true);
+    }
+    else
+      setTotal(value + 50);
   };
 
   const updateCart = (value) => {
@@ -58,7 +63,6 @@ const Cart = () => {
         const data = await res.json();
         if(res.status === 500) return;
 
-        console.log(data)
         notify("info", "Redirecting to payment page")
         stripePromise.redirectToCheckout({sessionId: data.id})
     }
@@ -67,9 +71,14 @@ const Cart = () => {
 
   useEffect(() => {
     const cart = localStorage.getItem("cartItems");
-    setCartItems(JSON.parse(cart));
-    setSubtotal(JSON.parse(cart).reduce((a, b) => a + b.price * b.quantity, 0));
-    setTotal(JSON.parse(cart).reduce((a, b) => a + b.price * b.quantity, 0) + 50)
+    const arr = JSON.parse(cart);
+    setCartItems(arr);
+    if(arr === null) {
+      setEmpty(true);
+      return;
+    }
+    setSubtotal(arr.reduce((a, b) => a + b.price * b.quantity, 0));
+    setTotal(arr.reduce((a, b) => a + b.price * b.quantity, 0) + 50)
     checkItems();
   }, []);
 

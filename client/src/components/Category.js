@@ -27,7 +27,7 @@ const CategoryItems = ({category}) => {
                         <div className='cursor-pointer' key={index}>
                             <div className='p-4 m-2 flex flex-col space-y-2'>
                                 <h3 className='text-xl font-semibold'>{product.itemName}</h3>
-                                <img src={product.image} alt={product.itemName} height={300} width={300}/>
+                                <img src={product.image} alt={product.itemName} height={300} width={300} className='object-contain'/>
                                 <Link to={`/product/hard/${category}/${product.id}`}><p className='hover:text-blue-500'>Shop now</p></Link>
                             </div>
                         </div>
