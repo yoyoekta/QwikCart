@@ -3,9 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import BottomBar from "../components/BottomBar";
 import fetchProds from "../components/FetchProds";
-import { FaMinus, FaPlus } from "react-icons/fa";
-import notify from "../components/Notification";
-import { ToastContainer } from "react-toastify";
 
 const ProductsByCategory = () => {
   const { category } = useParams();
@@ -32,15 +29,6 @@ const ProductsByCategory = () => {
   useEffect(() => {
     getProductsByCategory();
   }, []);
-
-  const addToCart = (itemName, price, image) => {
-    const cartItems = localStorage.getItem("cartItems") === "null" ? [] : JSON.parse(localStorage.getItem("cartItems")) || []
-    localStorage.setItem(
-      "cartItems", JSON.stringify([...cartItems,{itemName, price, image, quantity: 1 }]))
-
-    console.log(localStorage.getItem("cartItems"))
-    notify("success", "Item added to cart");
-  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-black dark:bg-black dark:text-white">
@@ -69,31 +57,6 @@ const ProductsByCategory = () => {
                     width={250}
                   />
                   <p>Price: {product.price}</p>
-                  <div className="flex space-x-2">
-                    {/* {addItem.clickedItem == itemName && addItem. ? (
-                        <div className="flex flex-row space-x-4 items-center">
-                        <div className="w-8 h-8 flex items-center justify-center border rounded-lg"><FaPlus /></div>
-                        <div className="flex flex-col">
-                          <div className="text-xl font-semibold">1</div>
-                        </div>
-                        <div className="w-8 h-8 flex items-center justify-center border rounded-lg"><FaMinus /></div>
-                      </div>
-                    ) : ( */}
-                         <button
-                      className="flex-1 bg-black hover:bg-slate-700 text-white font-medium py-2 px-4 rounded"
-                      onClick={() => {
-                        console.log(product.itemName)
-                        addToCart(
-                          product.itemName,
-                          product.price,
-                          product.image,
-                        );
-                      }}
-                    >
-                      Add to Cart
-                    </button>
-          {/* )} */}
-                    
                     <Link
                       to={`/product/hard/${category}/${product.id}`}
                       className="flex-1"
@@ -102,7 +65,6 @@ const ProductsByCategory = () => {
                         View
                       </button>
                     </Link>
-                  </div>
                 </div>
               </div>
             );
@@ -124,32 +86,18 @@ const ProductsByCategory = () => {
                     width={250}
                   />
                   <p>Price: {product.price}</p>
-                  <div className="flex space-x-2">
-                    <button
-                      className="flex-1 bg-black hover:bg-slate-700 text-white font-medium py-2 px-4 rounded"
-                      onClick={() => {
-                        console.log("clicked")
-                        addToCart(
-                        product.itemName,
-                        product.price,
-                        product.image.secure_url)
-                        }}
-                    >
-                      Add to Cart
+                  
+                  <Link to={`/product/${product._id}`} className="flex-1">
+                    <button className="bg-black hover:bg-slate-700 text-white font-medium py-2 px-4 rounded w-full">
+                      View
                     </button>
-                    <Link to={`/product/${product._id}`} className="flex-1">
-                      <button className="bg-black hover:bg-slate-700 text-white font-medium py-2 px-4 rounded w-full">
-                        View
-                      </button>
-                    </Link>
-                  </div>
+                  </Link>
                 </div>
               </div>
             );
           })}
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

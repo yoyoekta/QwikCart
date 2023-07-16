@@ -9,6 +9,12 @@ import MyProducts from "./pages/MyProducts";
 import AddProduct from "./pages/AddProduct";
 import Product from "./pages/Product";
 import EditProduct from "./pages/EditProduct"
+import Logout from "./pages/Logout";
+import AllProducts from "./pages/AllProducts";
+import ProductsByCategory from "./pages/ProductsByCategory";
+import ProductView from "./pages/ProductView"
+import Success from "./pages/Success";
+import Cancel from "./pages/Cancel";
 
 function App() {
   return (
@@ -20,10 +26,16 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/allproducts" element={<AllProducts />} />
+        <Route path="/products/:category" element={<ProductsByCategory />} />
         <Route path="/myproducts" element={<MyProducts />} />
         <Route path="/addproduct" element={<AddProduct />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/product/hard/:category/:id" element={<ProductView />} />
         <Route path="/myproducts/edit/:id" element={<EditProduct />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
       </Routes>
     </BrowserRouter>
   );
