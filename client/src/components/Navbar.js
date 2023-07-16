@@ -52,8 +52,8 @@ const Navbar = () => {
                                     { (checkToken() && item.name === 'Login/Signup') ?
                                         (<div className="relative border border-slate-500 rounded-full p-2">
                                             <FaUser onClick={()=>setOpen(!open)} className='cursor-pointer text-xl'/>
-                                            { open && 
-                                                <div className='z-10 absolute -right-4 top-10 bg-white border-2 rounded-xl border-black'>
+                                            { open ?
+                                                (<div className='z-10 absolute -right-4 top-10 bg-white border-2 rounded-xl border-black'>
                                                     <div className='flex flex-col p-2 m-2 space-y-1  '>
                                                         <NavLink to='/myproducts' className='text-slate-500 hover:text-slate-700'>My&nbsp;Products</NavLink>
                                                         <hr className='bg-slate-500 border-2 h-1'/>
@@ -61,10 +61,10 @@ const Navbar = () => {
                                                         <hr className='bg-slate-500 border-2 h-1'/>
                                                         <NavLink to='/logout' className='text-slate-500 hover:text-slate-700'>Logout</NavLink>
                                                     </div>
-                                                </div>
+                                                </div>) : ""
                                             }
                                         </div>) :
-                                        (<NavLink to={item.link} className={({isActive}) => isActive && "underline underline-offset-8"}>
+                                        (<NavLink to={item.link} className={({isActive}) => isActive ? "underline underline-offset-8" : ""}>
                                             {item.name}
                                         </NavLink>)
                                     }
