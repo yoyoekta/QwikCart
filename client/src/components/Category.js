@@ -1,8 +1,11 @@
 import React from 'react'
 import { FaArrowRight } from 'react-icons/fa6'
-import electronics from '../images/electronics.jpg'
+import fetchProds from './FetchProds'
+import { Link } from 'react-router-dom'
 
 const CategoryItems = ({category}) => {
+
+    const hardProds = fetchProds(category)
 
     return (
         <div className='m-6 p-3 border rounded-md'>
@@ -10,47 +13,26 @@ const CategoryItems = ({category}) => {
                 <div className='flex-1'>
                     <h3 className='text-2xl font-bold'>Deals on {category}</h3>
                 </div>
-                
-                <div className='flex-1 flex justify-end items-center space-x-2 flex-grow cursor-pointer'>
-                    <h4 className='text-medium font-semibold'>Show all</h4>
-                    <FaArrowRight />
-                </div>
+                <Link to={`/products/${category}`} className='flex-1 flex justify-end items-center space-x-2 flex-grow cursor-pointer'>
+                    <div className='flex-1 flex justify-end items-center space-x-2 flex-grow cursor-pointer'>
+                        <h4 className='text-medium font-semibold'>Show all</h4>
+                        <FaArrowRight />
+                    </div>
+                </Link>
             </div>
             
             <div className='flex justify-center space-x-5'>
-                <div className='cursor-pointer'>
-                    <div className='p-4 m-2 flex flex-col space-y-2'>
-                        <h3 className='text-xl font-semibold'>Product 1</h3>
-                        <img src={electronics} alt='Product 1' height={300} width={300}/>
-                        <p>Shop now</p>
-                    </div>
-                </div>
-
-                <div className='cursor-pointer'>
-                    <div className='p-4 m-2 flex flex-col space-y-2'>
-                        <h3 className='text-xl font-semibold'>Product 1</h3>
-                        <img src={electronics} alt='Product 1' height={300} width={300}/>
-                        <p>Shop now</p>
-                    </div>
-                </div>
-
-                <div className='cursor-pointer'>
-                    <div className='p-4 m-2 flex flex-col space-y-2'>
-                        <h3 className='text-xl font-semibold'>Product 1</h3>
-                        <img src={electronics} alt='Product 1' height={300} width={300}/>
-                        <p>Shop now</p>
-                    </div>
-                </div>
-
-                <div className='cursor-pointer'>
-                    <div className='p-4 m-2 flex flex-col space-y-2'>
-                        <h3 className='text-xl font-semibold'>Product 1</h3>
-                        <img src={electronics} alt='Product 1' height={300} width={300}/>
-                        <p>Shop now</p>
-                    </div>
-                </div>
-
-                
+                {hardProds.map((product, index) => {
+                    return (
+                        <div className='cursor-pointer' key={index}>
+                            <div className='p-4 m-2 flex flex-col space-y-2'>
+                                <h3 className='text-xl font-semibold'>{product.itemName}</h3>
+                                <img src={product.image} alt={product.itemName} height={300} width={300}/>
+                                <Link to={`/product/hard/${category}/${product.id}`}><p className='hover:text-blue-500'>Shop now</p></Link>
+                            </div>
+                        </div>
+                    )
+                })}
             </div>    
         </div>
     )
@@ -59,10 +41,10 @@ const CategoryItems = ({category}) => {
 const Category = () => {
 
     const categoryList = [
-        "Electronics",
-        "Clothing",
-        "Household",
-        "Art & Craft"
+        "electronics",
+        "clothing",
+        "household",
+        "art & crafts"
     ]
 
     return (
